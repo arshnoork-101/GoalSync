@@ -24,56 +24,7 @@
           .attr("readonly", true);
       });
     </script>
-    <style>
-      body {
-        font-family: sans-serif;
-        background-color: #f8f9fa; /* Light background */
-        color: #0a0a0a; /* Dark text for readability */
-      }
-
-      .card-icon {
-        font-size: 50px;
-        color: #a11f11; /* Maroon icon color */
-      }
-
-      .card {
-        background-color: #ffffff; /* White card background */
-        border: 1px solid black; /*Light gray border*/
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-      }
-
-      /* Hover effect on .col-md-3 */
-      .col-md-3:hover .card {
-        transform: translateY(-10px); /* Move the card up */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
-      }
-
-      .card-title {
-        color: #0a0a0a; /* Dark title color */
-        font-weight: 500;
-      }
-
-      .card-text {
-        color: #666666; /* Light gray for card text */
-      }
-
-      .btn-primary {
-        background-color: #a11f11; /* Maroon button background */
-        border-color: #a11f11; /* Maroon border */
-      }
-
-      .btn-primary:hover {
-        background-color: #800000; /* Darker maroon on hover */
-        border-color: #800000; /* Darker maroon border on hover */
-      }
-
-      .img-thumbnail {
-        max-width: 100px;
-        margin: 10px;
-        border: 2px solid #dcdcdc; /* Light gray border for images */
-      }
-    </style>
+    <link rel="stylesheet" href="./styles/dashPlayer.css">
     <script>
       $(document).ready(function () {
         if (localStorage.getItem("activeUser" == null)) {
