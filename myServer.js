@@ -2,6 +2,8 @@ var express = require("express");
 var mysql2 = require("mysql2");
 var bodyParser = require("body-parser");
 
+require('dotenv').config(); // Load .env file into process.env
+
 var app = express(); // Express framework
 
 app.use(bodyParser.urlencoded({ extended: true }));
