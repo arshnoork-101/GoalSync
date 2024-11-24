@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign-In Page</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      body {
+        background-color: #f5f5f5; /* Light background */
+        color: #333; /* Dark text for readability */
+        font-family: sans-serif;
+      }
+      .navbar {
+        background-color: white; /* White background for navbar */
+        border-bottom: 1px solid #e0e0e0; /* Light gray bottom border */
+      }
+      .navbar-brand {
+        color: #a11f11; /* Greyish Maroon for navbar brand */
+        font-weight: 500;
+      }
+      .btn-outline-primary {
+        background-color: #a11f11; /* Greyish Maroon button */
+        color: white;
+      }
+      .btn-outline-primary:hover {
+        background-color: #800000; /* Darker greyish maroon on hover */
+        color: white;
+      }
+      .modal-header {
+        background-color: #f5f5f5; /* Light background for modal header */
+      }
+      .form-label {
+        color: black;
+        font-weight: 500;
+      }
+      .form-control,
+      .form-control:focus {
+        border-color: black; /* Matching greyish maroon border for form inputs */
+        box-shadow: none;
+        outline: none;
+      }
+      .form-select,
+      .form-select:focus {
+        border-color: black; /* Matching greyish maroon border for dropdowns */
+        box-shadow: none;
+        outline: none;
+      }
+      .modal-title {
+        color: #a11f11; /* Greyish Maroon title in modal */
+      }
+      #errEmail {
+        font-size: 0.9em;
+      }
+    </style>
+
+    <!-- jQuery Script for Sign-Up and Log-In -->
+    <script>
+      $(document).ready(function () {
+        // Sign-Up form submission
+        $("#signupForm").on("submit", function (event) {
+          event.preventDefault();
+          const txtEmail = $("#SignUpEmail").val();
+          const txtPassword = $("#SignUpPassword").val();
+          const userType = $("#userType").val();
+
+          let obj = {
+            type: "post",
+            url: "/signupModal",
+            contentType: "application/json",
+            data: JSON.stringify({
+              emailid: txtEmail,
+              pwd: txtPassword,
+              utype: userType,
+            }),
+          };
+
+          $.ajax(obj)
+            .done(function (response) {
+              alert(response);
+            })
+            .fail(function (err) {
+              alert("Server Error");
+            });
+        });
+
+        // Login form submission
+        $("#loginForm").on("submit", function (event) {
+          let resp="";
+          event.preventDefault();
+          const loginEmail = $("#LoginEmail").val();
+          const loginPassword = $("#LoginPassword").val();
+
+          let obj = {
+            type: "post",
+            url: "/loginModal",
+            contentType: "application/json",
+            data: JSON.stringify({
+              emailid: loginEmail,
+              pwd: loginPassword
+            })
+          };
+
+          $.ajax(obj)
+            .done(function (response) {
+              resp=response;
+              if(response.utype=="Organizer" || response.utype=="Player"){
+                alert("Login successful! User type: " + response.utype);
+              if (response.utype == "Organizer") {
+                localStorage.setItem("activeUser", loginEmail);
+                location.href = "dashOrganizer.html";
+              } 
+              else if (response.utype == "Player") {
+                localStorage.setItem("activeUser", loginEmail);
+                location.href = "dashPlayer.html";
+              } 
+              }
+              else {
+                alert("Invalid UserID/Pwd...");
+              }
+            })
+            .fail(function (err) {
+              alert("Server Error.");
+            });
+        });
+
+        // Email validation
+        $("#txtEmail").keyup(function () {
+          let email = $("#txtEmail").val();
+          let eexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for email validation
+          let res = eexp.test(email);
+
+          if (res) {
+            $("#errEmail").html("It is Valid").css("color", "green");
+          } else {
+            $("#errEmail").html("Invalid Email ID").css("color", "red");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Navbar with Buttons -->
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1" style="color: black"
+          ><b>Sign-In Page</b></span
+        >
+        <div>
+          <button
+            class="btn btn-outline-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#signupModal"
+            style="border: 1px solid #800000; background-color: #a11f11"
+          >
+            Sign Up
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#loginModal"
+            style="border: 1px solid #800000; background-color: #a11f11"
+          >
+            Log In
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sign-Up Modal -->
+    <div
+      class="modal fade"
+      id="signupModal"
+      tabindex="-1"
+      aria-labelledby="signupModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="signupModalLabel" style="color: black">
+              SIGN UP
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <p style="margin: 10px 15px; font-size: 18px">
+            <i
+              >"Ready to join the team? Sign up now and never miss a
+              tournament!"</i
+            >
+          </p>
+          <div class="modal-body">
+            <form id="signupForm">
+              <div class="mb-3">
+                <label for="SignUpEmail" class="form-label">Email Id:</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="SignUpEmail"
+                  placeholder="Enter your Email Address"
+                  required
+                />
+                <span id="errEmail"></span>
+              </div>
+              <div class="mb-3">
+                <label for="SignUpPassword" class="form-label">Password:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="SignUpPassword"
+                  placeholder="Enter your Password"
+                  required
+                />
+                <span style="font-size: 0.8em"
+                  ><i>&nbsp; Generate a strong password</i></span
+                >
+              </div>
+              <div class="mb-3">
+                <label for="userType" class="form-label">User Type:</label>
+                <select class="form-select" id="userType" required>
+                  <option value="none" disabled>Select</option>
+                  <option value="Organizer">Organizer</option>
+                  <option value="Player">Player</option>
+                </select>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="background-color: #800000; border: 1px solid #800000"
+              >
+                Sign Up
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Log-In Modal -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel" style="color: black">
+              LOG IN
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <p style="margin: 10px 15px; font-size: 18px">
+            <i
+              >"Welcome back! Log in to stay updated on the latest tournaments
+              and events."</i
+            >
+          </p>
+          <div class="modal-body">
+            <form id="loginForm">
+              <div class="mb-3">
+                <label for="LoginEmail" class="form-label"
+                  >Email Address:</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="LoginEmail"
+                  placeholder="Enter email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="LoginPassword" class="form-label">Password:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="LoginPassword"
+                  placeholder="Enter password"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="background-color: #800000; border: 1px solid #800000"
+              >
+                Log In
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap Bundle with JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile Organizer</title>
+    <!-- Bootstrap CSS File-CSS 1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- CSS 2 -->
+    <style>
+      body {
+        background-color: #f0f2f5;
+      }
+      h2 {
+        color: black;
+      }
+      .form-label {
+        color: #333;
+      }
+      .btn-outline-primary {
+        color: #a11f11;
+        border-color: #a11f11;
+      }
+      .btn-outline-primary:hover {
+        background-color: #800000;
+        color: #fff;
+      }
+      .btn-outline-secondary {
+        background-color: #a11f11;
+        color: #fff;
+        border-color: #a11f11;
+      }
+      .btn-outline-secondary:hover {
+        background-color: #800000;
+        color: #fff;
+        border-color: #800000;
+      }
+      .border-blue {
+        border-color: #a11f11 ;
+      }
+    </style>
+    <!-- JQuery File-JS 1 -->
+    <!-- jQuery Library (used for AJAX and DOM manipulation) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- Script to preview the uploaded image file  -->
+     <!-- JS-2 -->
+    <script>
+      function preview() {
+        document.getElementById("prev").src = URL.createObjectURL(event.target.files[0]);
+      }   
+    </script>
+
+    <!-- AJAX Script to handle the search functionality -->
+     <!-- JS-3 FOR AJAX -->
+    <script>
+      $(document).ready(function() {
+        $("#activeUser").html(localStorage.getItem("activeUser"));
+        $("#emailid").val(localStorage.getItem("activeUser")).attr("readonly", true);
+
+        // Trigger search when the "Search" button is clicked
+        $('#searchorg').on('click', function() {
+          var email = $('#emailid').val(); // Get the value of the email input field
+    
+          let obj={
+            url: '/search-org', // The route for searching in the database
+            type:"get",
+            data:{
+              emailid:email
+            }
+          };
+          // Send an AJAX GET request to search for the email in the database
+          $.ajax(obj).done(function(response){
+            alert(response);
+          }).fail(function(err){
+            alert("Server Error");
+          })
+        });
+      });
+    </script>
+    
+  </head>
+  
+  <body>
+    <!-- Bootstrap JS Bundle (includes components like modals, dropdowns, etc.) -->
+     <!-- JS-4 FOR BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <div class="container mt-5">
+      <h2 class="text-center mb-4" style="margin-top: -30px;">Player's Profile</h2>
+      <div style="height: 30px;"></div>
+      <form class="row g-3 p-4 bg-white border rounded border-blue" enctype="multipart/form-data" method="post" action="/profileOrganizer">
+        
+        <!-- Email -->
+        <div class="col-md-10">
+          <label for="txtmail" class="form-label">Email</label>
+          <input type="email" class="form-control" id="emailid" name="emailid" placeholder="Enter your email">
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+          <button type="button" class="btn btn-outline-secondary w-100" id="searchorg">Search</button>
+        </div>
+        
+        <!-- Organization and Contact No. -->
+        <div class="col-md-6">
+          <label for="txtorg" class="form-label">Organization</label>
+          <input type="text" class="form-control" id="txtorg" name="organization" placeholder="Enter your organization name">
+        </div>
+        <div class="col-md-6">
+          <label for="txtcontact" class="form-label">Contact No. (Of Any Representative)</label>
+          <input type="text" class="form-control" id="txtcontact" name="contact" placeholder="Enter contact number">
+        </div>
+
+        <!-- Address and City -->
+        <div class="col-md-6">
+          <label for="txtaddress" class="form-label">Address</label>
+          <input type="text" class="form-control" id="txtaddress" name="address" placeholder="Enter your address">
+        </div>
+        <div class="col-md-6">
+          <label for="txtcity" class="form-label">City</label>
+          <input type="text" class="form-control" id="txtcity" name="city" placeholder="Enter your city">
+        </div>
+
+        <!-- ID Proof and File Upload -->
+        <div class="col-md-6">
+          <label for="txtproof" class="form-label">ID Proof</label>
+          <select id="txtproof" class="form-select" name="proof">
+            <option selected disabled>Select</option>
+            <option>Registration Certificate</option>
+            <option>Aadhaar Card</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="txtprooffile" class="form-label">Upload File</label>
+          <input type="file" class="form-control" id="txtprooffile" name="profilepic" onchange="preview();">
+        </div>
+        <div class="col-md-3 d-flex align-items-center">
+          <img src="" id="prev" alt="Preview" width="150" height="150" class="border rounded border-blue">
+        </div>
+
+        <!-- Sports and Previous Tournaments -->
+        <div class="col-md-6">
+          <label class="form-label">Deals with Sports</label>
+          <select class="form-select" multiple size="4" id="txtsports" name="sports">
+            <option disabled>Select</option>
+            <option>Basketball</option>
+            <option>Badminton</option>
+            <option>Football</option>
+            <option>Cricket</option>
+            <option>Others</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="txtprev" class="form-label">Previous Tournaments Hosted</label>
+          <textarea class="form-control" id="txtprev" name="picprev" rows="4" placeholder="Describe previous tournaments"></textarea>
+        </div>
+
+        <!-- Reference Website and Social Media -->
+        <div class="col-md-6">
+          <label for="txtwebsite" class="form-label">Reference Website (If any)</label>
+          <input type="text" class="form-control" id="txtwebsite" name="website" placeholder="Enter reference website URL">
+        </div>
+        <div class="col-md-6">
+          <label for="txtinsta" class="form-label">Any Social Media Handle</label>
+          <input type="text" class="form-control" id="txtinsta" name="socialhandle" placeholder="Enter social media handle">
+        </div>
+
+        <!-- Buttons -->
+        <div class="col-6 d-grid">
+          <button type="submit" class="btn btn-outline-primary" id="save-btn">Save</button>
+        </div>
+        <div class="col-6 d-grid">
+          <button type="submit" class="btn btn-outline-primary" id="update-btn">Update</button>
+        </div>
+
+      </form>
+    </div>
+  </body>
+</html>

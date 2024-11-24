@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign-Up(Security Methods)</title>
+  </head>
+  <style>
+    #div1{
+        border: 2px darkred solid;
+        height: 400px;
+        width: 400px;
+    }
+  </style>
+  <body>
+    <center style="float: left; padding-left: 200px; padding-top: 100px;">
+        <div id="div1">
+    <form action="/signup-unsecure">
+        <div>
+            <table>
+                <tr>
+                    <th>
+                        <h3><u>UNSECURED SIGN-UP</u></h3>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Email ID: </b><br>
+                            <input type="text" name="txtEmail">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Password: </b><br>
+                        <input type="password" name="txtPassword">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                        <b>Choose your User Category:</b>
+                        <br> 
+                        <input type="radio" name="radStudent" value="Student">Student
+                        <input type="radio" name="radGrad" value="Grad"> Grad
+                        <input type="radio" name="radEmployee" value="Employee">Employee
+                        <input type="radio" name="radStaff" value="Staff">Staff
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                        <b>Linked With Us On:</b>
+                        <br>
+                    <input type="checkbox" name="chkInstagram" value="Instagram">Instagram
+                    <input type="checkbox" name="chkLinkedIn" value="LinkedIn">LinkedIn
+                    <input type="checkbox" name="chkDiscord" value="Discord">Discord
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                    <input type="submit" value="Sign-Up"> &nbsp;
+                </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+    </center>
+    <center style="float: right; padding-right: 200px; padding-top: 100px;">
+        <div id="div1">
+    <form  method="post" enctype="multipart/form-data">
+        <div>
+            <table>
+                <tr>
+                    <th>
+                        <h3><u>SECURED SIGN-UP</u></h3>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Email ID: </b><br>
+                            <input type="text" name="txtEmail">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Password: </b><br>
+                        <input type="password" name="txtPassword">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                        <b>Choose your User Category:</b>
+                        <br> 
+                        <input type="radio" name="radStudent" value="Student">Student
+                        <input type="radio" name="radGrad" value="Grad"> Grad
+                        <input type="radio" name="radEmployee" value="Employee">Employee
+                        <input type="radio" name="radStaff" value="Staff">Staff
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                        <b>Linked With Us On:</b>
+                        <br>
+                    <input type="checkbox" name="chkInstagram" value="Instagram">Instagram
+                    <input type="checkbox" name="chkLinkedIn" value="LinkedIn">LinkedIn
+                    <input type="checkbox" name="chkDiscord" value="Discord">Discord
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                    <input type="submit" value="Sign-Up" formaction="/signup-secure"> &nbsp;
+                </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+    </center>
+  </body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign-Up</title>
+  </head>
+  <style>
+    /* Universal Selector */
+    * {
+      background-size: cover;
+    }
+
+    body {
+      background-image: url(/pics/bg.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 600px;
+      font-family: sans-serif;
+      background-color: black;
+    }
+
+    #box {
+      margin: auto;
+      padding-top: 15px;
+      padding-left: 10px;
+      padding-right: 10px;
+      background-color: white;
+      width: 400px;
+      height: 350px;
+      box-shadow: 0px 0px 8px 5px darkgray;
+      margin-top: 120px;
+    }
+
+    #cross {
+      background-image: url(../pics/cross.png);
+      width: 25px;
+      height: 25px;
+      background-size: cover;
+      float: right;
+      margin-top: 5px;
+      margin-right: 5px;
+      background-color: rgb(164, 13, 25);
+      border-radius: 5px;
+    }
+
+    #title {
+      color: black;
+      text-align: center;
+      font-size: 30px;
+    }
+
+    #parent {
+      width: 250px;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      float: left;
+    }
+
+    .ctrl {
+      margin: 5px 5px;
+      width: 350px;
+      height: 60px;
+    }
+
+    #img2 {
+      background-image: url(/pics/img2.png);
+      width: 150px;
+      height: 150px;
+      float: right;
+      margin-top: 35px;
+    }
+
+    .btn {
+        align-items: center;
+        text-align: center;
+        background-color: rgb(164, 13, 25);
+        color: white;
+        padding: 10px 10px;
+        cursor: pointer;
+        margin: 5px 5px;
+        border-radius: 15px;
+        width: 150px;
+        font-size: 20px;
+        margin-bottom: 5px;
+        margin-left: 40px;
+        clear: both;
+        float: left;
+    }
+
+    .btn:hover {
+      background-color: rgb(150, 0, 0);
+    }
+
+    .btn2:hover {
+      background-color: rgb(150, 0, 0);
+    }
+
+    #Pwd, #Phone, #Email {
+      border-radius: 5px;
+    }
+    .btn2{
+        align-items: center;
+        text-align: center;
+        background-color: rgb(164, 13, 25);
+        color: white;
+        padding: 10px 10px;
+        cursor: pointer;
+        margin: 5px 5px;
+        border-radius: 15px;
+        width: 150px;
+        font-size: 20px;
+        margin-bottom: 5px;
+        margin-left: 40px;
+        margin-right: 10px;
+        float: left;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <!-- CROSS -->
+      <div id="cross"></div>
+
+      <div id="title">SIGN-IN PORTAL</div>
+
+      <div id="parent">
+        <!-- EMAIL ID -->
+        <div class="ctrl">
+          <label for="Email">Email ID</label>
+          <div class="1st">
+            <input type="email" id="Email" required  />
+          </div>
+        </div>
+
+        <!-- PHONE NUMBER -->
+        <div class="ctrl">
+          <label for="Phone">Phone Number</label>
+          <div class="2nd">
+            <input
+              type="text"
+              id="Phone"
+              required
+              placeholder="(###) - ### - ####"
+            />
+          </div>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="ctrl">
+          <label for="Pwd">Password</label>
+          <div class="3rd">
+            <input type="password" id="Pwd" required />
+          </div>
+        </div>
+      </div>
+
+      <div id="img2"></div>
+
+      <div>
+        <form>
+      <input class="btn" type="submit" value="Sign Up" formaction="/signup">
+      <input class="btn2" type="submit" value="Log In" formaction="/login">
+    </form>
+    </div>
+      <div style="float: left; margin: 8px; color: green;"><i>Your privacy is our priority!</i>
+      </div>
+    </div>
+  </body>
+</html>

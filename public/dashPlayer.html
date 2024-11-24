@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Player's Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        // alert(localStorage.getItem("activeUser"));
+        $("#activeUser").html(localStorage.getItem("activeUser"));
+
+        $("#txtEmail")
+          .val(localStorage.getItem("activeUser"))
+          .attr("readonly", true);
+      });
+    </script>
+    <style>
+      body {
+        font-family: sans-serif;
+        background-color: #f8f9fa; /* Light background */
+        color: #0a0a0a; /* Dark text for readability */
+      }
+
+      .card-icon {
+        font-size: 50px;
+        color: #a11f11; /* Maroon icon color */
+      }
+
+      .card {
+        background-color: #ffffff; /* White card background */
+        border: 1px solid black; /*Light gray border*/
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      }
+
+      /* Hover effect on .col-md-3 */
+      .col-md-3:hover .card {
+        transform: translateY(-10px); /* Move the card up */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+      }
+
+      .card-title {
+        color: #0a0a0a; /* Dark title color */
+        font-weight: 500;
+      }
+
+      .card-text {
+        color: #666666; /* Light gray for card text */
+      }
+
+      .btn-primary {
+        background-color: #a11f11; /* Maroon button background */
+        border-color: #a11f11; /* Maroon border */
+      }
+
+      .btn-primary:hover {
+        background-color: #800000; /* Darker maroon on hover */
+        border-color: #800000; /* Darker maroon border on hover */
+      }
+
+      .img-thumbnail {
+        max-width: 100px;
+        margin: 10px;
+        border: 2px solid #dcdcdc; /* Light gray border for images */
+      }
+    </style>
+    <script>
+      $(document).ready(function () {
+        if (localStorage.getItem("activeUser" == null)) {
+          window.location.href = "index.html";
+          return;
+        }
+
+        $("#btnLogout").click(function () {
+          localStorage.removeItem("activeUser");
+          window.location.href = "index.html";
+        });
+        //==============================================================
+
+        $("#updatePassword").click(function () {
+          let emailid = $("#txtEmail").val();
+          let currpwd = $("#txtCurrPwd").val();
+          let newpwd = $("#txtNewPwd").val();
+
+          if (currpwd === newpwd) {
+            alert("New password must be different from the current one.");
+          } else {
+            let obj = {
+              type: "get",
+              url: "/update-password",
+              data: {
+                // left anything, right upar wale
+                txtEmail: emailid,
+                txtCurrPass: currpwd,
+                txtNewPass: newpwd,
+              },
+            };
+            $.ajax(obj)
+              .done(function (resp) {
+                alert("Password Updated Successfully");
+              })
+              .fail(function (err) {
+                alert("Server Error.");
+              });
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <center>
+          <div class="col-md-6" style="font-size: 1.2em; margin-top: 20px">
+            <i> Welcome: <span id="activeUser"></span></i>
+          </div>
+        </center>
+      </div>
+    </div>
+    <div class="container my-5">
+      <h2 class="text-center mb-4" style="margin-top: -20px">
+        Player's Dashboard
+      </h2>
+      <div class="row g-4">
+        <!-- Profile Card -->
+        <div class="col-md-3">
+          <div class="card text-center p-3">
+            <div class="card-body">
+              <div class="card-icon mb-3">
+                <img
+                  src="https://res.cloudinary.com/da9gwrtit/image/upload/v1731778748/lqrn5e842tuybm7xo3rn.png"
+                  class="img-thumbnail"
+                  alt="Profile Image"
+                  style="
+                    border: 1px solid #dcdcdc;
+                    height: 100px;
+                    width: 120px;
+                    border-radius: 10px;
+                  "
+                />
+              </div>
+              <h5 class="card-title">Personal Details</h5>
+              <p class="card-text">You can fetch your details.</p>
+              <a href="profilePlayer.html" class="btn btn-primary"
+                >My Profile</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Posts Card (Tournaments) -->
+        <div class="col-md-3">
+          <div class="card text-center p-3">
+            <div class="card-body">
+              <div class="card-icon mb-3">
+                <img
+                  src="https://res.cloudinary.com/da9gwrtit/image/upload/v1731723617/ilnmtgq8g82yggirmzuz.jpg"
+                  class="img-thumbnail"
+                  alt="Tournaments Image"
+                  style="
+                    height: 100px;
+                    width: 100px;
+                    border: 1px solid #dcdcdc;
+                    border-radius: 10px;
+                  "
+                />
+              </div>
+              <h5 class="card-title">Find Tournaments</h5>
+              <p class="card-text">Scroll through our tournaments.</p>
+              <a href="./tournaments-finder.html" class="btn btn-primary"
+                >Start Scrolling</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Card -->
+        <div class="col-md-3">
+          <div class="card text-center p-3">
+            <div class="card-body">
+              <div class="card-icon mb-3">
+                <img
+                  src="https://res.cloudinary.com/da9gwrtit/image/upload/v1731636631/zyf2kekdt1al6aee3unh.png"
+                  class="img-thumbnail"
+                  alt="Settings Image"
+                  style="
+                    border: 1px solid #dcdcdc;
+                    height: 100px;
+                    width: 100px;
+                    border-radius: 10px;
+                  "
+                />
+              </div>
+              <h5 class="card-title">Settings</h5>
+              <p class="card-text">From here, you can alter your account details.</p>
+              <!-- Button trigger modal -->
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                Settings
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <!-- ====================================== -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header" style="background-color: #f5f5f5">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  Settings
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="col-md-10">
+                  <label for="txtEmail" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="txtEmail"
+                    name="txtEmail"
+                    placeholder="Enter your email"
+                    style="width: 450px"
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label
+                  for="LoginPassword"
+                  class="form-label"
+                  style="margin-left: 15px"
+                  >Current Password:</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="txtCurrPwd"
+                  name="txtCurrPwd"
+                  placeholder="Enter Current password"
+                  required
+                  style="margin-left: 15px; width: 450px"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label
+                  for="LoginPassword"
+                  class="form-label"
+                  style="margin-left: 15px"
+                  >New Password:</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="txtNewPwd"
+                  name="txtNewPwd"
+                  placeholder="Enter New password"
+                  required
+                  style="margin-left: 15px; width: 450px"
+                />
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="updatePassword"
+                >
+                  Update changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- =============================================== -->
+
+        <!-- Quick Actions Card (Logout) -->
+        <div class="col-md-3">
+          <div class="card text-center p-3">
+            <div class="card-body">
+              <div class="card-icon mb-3">
+                <img
+                  src="https://res.cloudinary.com/da9gwrtit/image/upload/v1731782270/dmearqlcdl5lbqisxkqk.png"
+                  class="img-thumbnail"
+                  alt="Logout Image"
+                  style="
+                    height: 100px;
+                    width: 100px;
+                    border: 1px solid #dcdcdc;
+                    border-radius: 10px;
+                  "
+                />
+              </div>
+              <h5 class="card-title">Logout</h5>
+              <p class="card-text">You can securely log out of your account.</p>
+              <a href="#" class="btn btn-primary" id="btnLogout">Sign Out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Publish Tournaments</title>
+    <!-- Bootstrap CSS File -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- jQuery Library (used for AJAX and DOM manipulation) -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      body {
+        background-color: #f5f5f5; /* Light background */
+        color: #333; /* Dark text for readability */
+        font-family: sans-serif;
+      }
+      h2 {
+        color: #a11f11; /* Greyish Maroon title color */
+      }
+      .form-label {
+        color: black; 
+        font-weight:500;
+      }
+      .btn-outline-primary {
+        background-color: #a11f11; /* Greyish Maroon on hover */
+        color: white;
+      }
+      .btn-outline-primary:hover {
+        background-color: #800000; /* Darker greyish maroon on hover */
+        color: white; /* White text on hover */
+      }
+      .btn-outline-secondary {
+        color: #8c8c8c; /* Light gray text for secondary buttons */
+        border-color: #8c8c8c; /* Light gray border */
+      }
+      .btn-outline-secondary:hover {
+        background-color: #800000; /* Greyish Maroon on hover */
+      }
+      .border-blue {
+        border-color: #a11f11; /* Matching greyish maroon border */
+      }
+      .form-control, .form-control:focus {
+        border-color: black; /* Matching greyish maroon border for form inputs */
+        box-shadow: none; 
+        outline: black; 
+      }
+      .form-control:focus {
+        border-color: black; 
+      }
+      .textarea:focus {
+        border-color: black; 
+      }
+      .card-body {
+        background-color: white;
+        padding: 20px;
+      }
+      .card {
+        border: 1px solid #e0e0e0; /* Light gray border for card */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .card-title {
+        color: #a11f11; /* Greyish Maroon card title */
+      }
+      .card-text {
+        color: #666666; /* Light gray text */
+      }
+      .img-thumbnail {
+        max-width: 150px;
+        margin-top: 10px;
+        border: 2px solid #e0e0e0; /* Light gray border for images */
+      }
+      .col-md-3.d-flex.align-items-center {
+        text-align: center;
+      }
+      .card-icon img {
+        border: 1px solid #e0e0e0;
+        height: 100px;
+        width: 100px;
+      }
+    </style>
+
+    <!-- Script to preview the uploaded image file -->
+    <script>
+      function preview() {
+        document.getElementById("prev").src = URL.createObjectURL(
+          event.target.files[0]
+        );
+      }
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $("#emailid").val(localStorage.getItem("activeUser")).attr("readonly", true);
+
+        $("#createTournament").click(function (e) {
+          let email=("#email").val();
+          let game=("#game").val();
+          let title=("#title").val();
+          let fee=("#fee").val();
+          let dot=("#dot").val();
+          let city=("#city").val();
+          let location=("#location").val();
+          let prizes=("#prizes").val();
+          let poster=("#poster").val();
+          let info=("#info").val();
+
+          let obj={
+            type: "get",
+            url: "/publish-tournament",
+            data:{
+              txtEmail:email,
+              txtGame:game,
+              txtTitle:title,
+              txtFee:fee,
+              txtPrizes:prizes,
+              txtDot:dot,
+              txtCity:city,
+              txtLocation:location,
+              txtPoster:poster,
+              txtInfo:info
+            }
+          };
+          $.ajax(obj).done(function(resp){
+            alert("Tournament Published Successfully");
+          }).fail(function(err){
+            alert("Server Error");
+          })
+
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="container mt-5" >
+      <h2 class="text-center mb-4" style="margin-top: -25px;">Publish Tournament</h2>
+      <form
+        id="publishForm"
+        class="row g-3 p-4 bg-white border rounded border-blue"
+        enctype="multipart/form-data"
+      >
+        <!-- Email -->
+        <div class="col-md-10">
+          <label for="emailid" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="emailid"
+            name="emailid"
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <!-- Game -->
+        <div class="col-md-6">
+          <label for="game" class="form-label">Game</label>
+          <input
+            type="text"
+            class="form-control"
+            id="game"
+            name="game"
+            placeholder="Enter the game name"
+            required
+          />
+        </div>
+
+        <!-- Title -->
+        <div class="col-md-6">
+          <label for="title" class="form-label">Tournament Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            placeholder="Enter the tournament title"
+            required
+          />
+        </div>
+
+        <!-- Fee -->
+        <div class="col-md-6">
+          <label for="fee" class="form-label">Registration Fee</label>
+          <input
+            type="number"
+            class="form-control"
+            id="fee"
+            name="fee"
+            placeholder="Enter registration fee"
+            required
+          />
+        </div>
+
+        <!-- Date of Tournament -->
+        <div class="col-md-6">
+          <label for="dot" class="form-label">Date of Tournament</label>
+          <input type="date" class="form-control" id="dot" name="dot" required/>
+        </div>
+
+        <!-- City -->
+        <div class="col-md-6">
+          <label for="city" class="form-label">City</label>
+          <input
+            type="text"
+            class="form-control"
+            id="city"
+            name="city"
+            placeholder="Enter the city"
+            required
+          />
+        </div>
+
+        <!-- Location -->
+        <div class="col-md-6">
+          <label for="location" class="form-label">Location</label>
+          <input
+            type="text"
+            class="form-control"
+            id="location"
+            name="location"
+            placeholder="Enter location"
+            required
+          />
+        </div>
+
+        <!-- Prizes -->
+        <div class="col-md-6">
+          <label for="prizes" class="form-label">Prizes</label>
+          <input
+            type="text"
+            class="form-control"
+            id="prizes"
+            name="prizes"
+            placeholder="Enter prize details"
+            required
+          />
+        </div>
+
+        <hr />
+        <!-- Poster -->
+        <div class="col-md-6">
+          <input
+            type="file"
+            class="form-control"
+            id="poster"
+            name="poster"
+            onchange="preview();"
+            required
+          />
+        </div>
+
+        <!-- Poster Preview -->
+        <div class="col-md-3 d-flex align-items-center">
+          <img
+            src=""
+            id="prev"
+            alt="Preview"
+            width="150"
+            height="150"
+            class="border rounded border-blue"
+          />
+        </div>
+
+        <!-- Additional Info -->
+        <div class="col-md-12">
+          <label for="info" class="form-label">Additional Information</label>
+          <textarea
+            class="form-control"
+            id="info"
+            name="info"
+            rows="4"
+            placeholder="Enter additional tournament information"
+            required
+          ></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-6 d-grid">
+          <button type="submit" class="btn btn-outline-primary" id="createTournament">
+            Create Tournament
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
