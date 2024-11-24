@@ -16,8 +16,13 @@ app.listen(port, function () {
 });
 
 // MySQL connection configuration
-let config = "mysql://avnadmin:AVNS_tpOP0jbL8CSXgcAcREm@mysql-50284af-arshnoor64050-06f9.l.aivencloud.com:25622/defaultdb";
-var mysqlServer = mysql2.createConnection(config);
+const mysqlServer = mysql2.createConnection({
+    host: process.env.MYSQL_HOST,
+    port: process.env.MYSQL_PORT,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
+});
 
 // Connect to MySQL database
 mysqlServer.connect(function (err) {
@@ -44,9 +49,9 @@ app.get("/", function (req, resp) {
 // UPLOADING TO Cloudinary
 var cloudinary=require("cloudinary").v2;
 cloudinary.config({ 
-    cloud_name: 'da9gwrtit', 
-    api_key: '416944178917971', 
-    api_secret: 's0ilyVaoJzh4vSoyPpwfO-yJMyw'
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
 });
 //================================================================================
 
