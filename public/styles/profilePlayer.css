@@ -1,0 +1,30 @@
+body {
+    background-color: #f0f2f5;
+  }
+  h2 {
+    color: black;
+  }
+  .form-label {
+    color: #333;
+  }
+  .btn-outline-primary {
+    color: #a11f11;
+    border-color: #a11f11;
+  }
+  .btn-outline-primary:hover {
+    background-color: #800000;
+    color: #fff;
+  }
+  .btn-outline-secondary {
+    background-color: #a11f11;
+    color: #fff;
+    border-color: #a11f11;
+  }
+  .btn-outline-secondary:hover {
+    background-color: #800000;
+    color: #fff;
+    border-color: #800000;
+  }
+  .border-blue {
+    border-color: #a11f11 ;
+  }
