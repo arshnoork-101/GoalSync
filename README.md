@@ -13,4 +13,12 @@
 - **Frontend**: AngularJS, Bootstrap, jQuery
 - **AJAX**: For dynamic data fetching
 - **Database**: MySQL
+- **Version Control**: Git and GitHub for repository management
+- **File Uploads**: Cloudinary for handling image uploads and serving media content
+
+## Contributing:
+Feel free to fork the repository and submit pull requests to contribute to the development of **GoalSync**. Please follow the coding guidelines and submit issues for any bugs or feature requests.
+
+## License:
+This project is licensed under the MIT License.
   
