@@ -11,7 +11,7 @@
 
 ## Technologies Used:
 - **Backend**: Node.js, Express
-- **Frontend**: AngularJS, Bootstrap, jQuery
+- **Frontend**: AngularJS, HTML, CSS, JavaScript, Bootstrap, jQuery
 - **AJAX**: For dynamic data fetching
 - **Database**: MySQL
 - **Version Control**: Git and GitHub for repository management
