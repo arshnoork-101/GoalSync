@@ -8,7 +8,6 @@
 - **AJAX**: Asynchronously fetch data for a smoother experience.
 - **Responsive**: Optimized for all devices using Bootstrap.
 
-
 ## Technologies Used:
 - **Backend**: Node.js, Express
 - **Frontend**: AngularJS, HTML, CSS, JavaScript, Bootstrap, jQuery
@@ -22,4 +21,3 @@ Feel free to fork the repository and submit pull requests to contribute to the d
 
 ## License:
 This project is licensed under the MIT License.
-  
