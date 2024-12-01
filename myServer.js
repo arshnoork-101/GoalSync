@@ -193,7 +193,7 @@ app.post("/publish-tournament", async function(req, res) {
             // Move the uploaded file to the server's directory
             poster.mv(path, async function(err) {
                 if (err) {
-                    return res.status(500).send("File upload failed: " + err.message);
+                    return res.send("File upload failed: " + err.message);
                 }
 
                 // Upload the file to Cloudinary
@@ -305,4 +305,48 @@ app.get('/fetch-all-games', (req, res) => {
         }
         res.json(results);
     });
+});
+
+app.post("/profilePlayer", async function (req, resp) {
+    let filename = "";
+
+    if (req.files == null) {
+        // If no picture is uploaded, use default image
+        filename = "nopic.jpg";
+    } else {
+        filename = req.files.profilepic.name;
+        let path = __dirname + "/public/uploads/" + filename;
+        console.log(path);
+
+        // Move file to uploads directory
+        req.files.profilepic.mv(path);
+
+        // Save the file on Cloudinary server
+        await cloudinary.uploader.upload(path).then(function (result) {
+            filename = result.url; // Get Cloudinary URL
+            console.log(filename);
+        }).catch(function (error) {
+            console.error("Cloudinary Upload Error:", error);
+            return resp.send("Image upload failed.");
+        });
+    }
+
+    console.log(req.body);
+    req.body.ppic = filename; // Save image URL to the body object
+
+    // Insert form data into MySQL database
+    mysqlServer.query(
+        "INSERT INTO playersprofile (emailid, fullname, contact, address, city, zip, proof, ppic, sports, previousachievements, website, socialhandle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+            req.body.emailid, req.body.fullname, req.body.contact, req.body.address,
+            req.body.city, req.body.zip, req.body.proof, req.body.ppic,
+            req.body.sports, req.body.previousachievements, req.body.website, req.body.socialhandle
+        ],
+        function (err) {
+            if (err == null) 
+                resp.send("Record Saved Successfully");
+            else 
+                resp.send(err.message);
+        }
+    );
 });
