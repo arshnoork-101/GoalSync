@@ -61,3 +61,42 @@ hr {
     border: 0;
     border-top: 1px solid #ccc;
 }
+body {
+    background-color: #f8f9fa; /* Light grey for background */
+    color: #343a40; /* Dark grey for text */
+}
+
+h1 {
+    color: #a11f11;
+}
+
+.form-group label {
+    color: black;
+}
+
+.btn-primary {
+    background-color: #a11f11;
+    border-color: #a11f11;
+}
+
+.btn-primary:hover {
+    background-color: #800000; /* Darker maroon */
+}
+
+.card {
+    border: 1px solid white;
+}
+
+.card-title {
+    color: #a11f11;
+}
+
+.modal-header {
+    background-color: #a11f11;
+    color: white;
+}
+
+.modal-footer .btn-secondary {
+    background-color: grey;
+    border-color: grey;
+}

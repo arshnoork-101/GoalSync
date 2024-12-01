@@ -4,88 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tournaments Finder</title>
-    
+
     <!-- Include AngularJS Library -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    
-   <!-- Include Bootstrap JS -->
+
+    <!-- Include Bootstrap CSS and JS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="./styles/tournaments-finder.css">
-    
+
     <script>
         var app = angular.module("kuchModule", []);
-      
+
         app.controller("kuchController", function ($scope, $http) {
-            // Load cities and games automatically
             $scope.init = function() {
                 $scope.doFetchCities();
                 $scope.doFetchGames();
                 $scope.doFetchAllTournaments();
             };
-            
-            // Fetch all tournaments
+
             $scope.doFetchAllTournaments = function () {
                 let url = "/fetch-all-tournaments";
                 $http.get(url).then(done, fail);
-      
+
                 function done(response) {
-                    // On successful fetch, store the data in tournamentsArray and filteredTournamentsArray
                     $scope.tournamentsArray = response.data;
                     $scope.filteredTournamentsArray = $scope.tournamentsArray;
                 }
-      
+
                 function fail(err) {
                     alert(err.data);
                 }
             };
-      
-            // Fetch all unique cities
+
             $scope.doFetchCities = function () {
                 let url = "/fetch-all-cities";
                 $http.get(url).then(done, fail);
-      
+
                 function done(response) {
-                    // Store cities in citiesArray for the dropdown
                     $scope.citiesArray = response.data;
                 }
-      
+
                 function fail(err) {
                     alert(err.data);
                 }
             };
-      
-            // Fetch all unique game names
+
             $scope.doFetchGames = function () {
                 let url = "/fetch-all-games";
                 $http.get(url).then(done, fail);
-      
+
                 function done(response) {
-                    // Store games in gamesArray for the dropdown
                     $scope.gamesArray = response.data;
                 }
-      
+
                 function fail(err) {
                     alert(err.data);
                 }
             };
-            
-            // Function to filter tournaments based on selected city and game
+
             $scope.filterTournaments = function () {
-                // In JavaScript, falsy values include undefined, null, false, 0, NaN, and an empty string (""). 
-                // !$scope.selectedGame: This negates the value of $scope.selectedGame. 
-                // If $scope.selectedGame is falsy (e.g., it's null, undefined, or an empty string), the result of !$scope.selectedGame will be true.
-                // $scope.tournamentsArray is the array of all tournaments, and it's assumed to contain all the data fetched from the server. This array is the one we want to filter.
                 $scope.filteredTournamentsArray = $scope.tournamentsArray.filter(function (tournament) {
-                    // The .filter() method in JavaScript takes a callback function as its argument. 
                     let cityMatch = !$scope.selectedCity || tournament.city === $scope.selectedCity;
                     let gameMatch = !$scope.selectedGame || tournament.game === $scope.selectedGame;
                     return cityMatch && gameMatch;
                 });
             };
 
-            // Function to show tournament details in modal
             $scope.showDetails = function (tournament) {
                 $scope.selectedTournament = tournament;
                 $("#myModal").modal('show');
@@ -94,61 +82,55 @@
     </script>
 </head>
 <body ng-app="kuchModule" ng-controller="kuchController" ng-init="init()">
-    <center>
-        <!-- Title -->
-        <div class="title">FETCH TOURNAMENTS</div>
-        
-        <!-- Display Cities Dropdown -->
-        <label for="citySelect">Select City:</label>
-        <select id="citySelect" ng-model="selectedCity">
-            <option value="">All Cities</option>
-            <option ng-repeat="city in citiesArray" value="{{city.city}}">{{city.city}}</option>
-        </select>
+    <div class="container text-center mt-4">
+        <h1 class="mb-4" style="margin-top: -20px;">Tournaments Finder</h1>
 
-        &nbsp;&nbsp;&nbsp;
-        <!-- Display Game Names Dropdown -->
-        <label for="gameSelect">Select Game:</label>
-        <select id="gameSelect" ng-model="selectedGame">
-            <option value="">All Games</option>
-            <option ng-repeat="game in gamesArray" value="{{game.game}}">{{game.game}}</option>
-        </select>
+        <div class="form-group">
+            <div style="display: inline-block;">
+            <label for="citySelect">Select City:</label>
+            <select id="citySelect" class="form-control d-inline w-auto" ng-model="selectedCity">
+                <option value="">All Cities</option>
+                <option ng-repeat="city in citiesArray" value="{{city.city}}">{{city.city}}</option>
+            </select>
+            </div>
 
-        <br><br>
-        <!-- Fetch Button to Apply Filters -->
-        <button ng-click="filterTournaments()">LOAD SELECTED TOURNAMENTS</button>
+            <div style="display: inline-block;">
+            <label for="gameSelect" class="ml-3">Select Game:</label>
+            <select id="gameSelect" class="form-control d-inline w-auto" ng-model="selectedGame">
+                <option value="">All Games</option>
+                <option ng-repeat="game in gamesArray" value="{{game.game}}">{{game.game}}</option>
+            </select>
+            </div>
 
-        <br><br>
-        <!-- Display Tournaments as Cards -->
-        <div class="row" style="margin: 10px;">
-            <!-- ng-repeat creates a card for each tournament in the filteredTournamentsArray -->
-            <div class="col-md-3" ng-repeat="tournament in filteredTournamentsArray">
-                <div class="card" style="margin: 10px;">
-                    <!-- Display Tournament Poster -->
+            <br> <br>
+            <button class="btn btn-primary ml-3" ng-click="filterTournaments()">Load Tournaments</button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4" ng-repeat="tournament in filteredTournamentsArray">
+                <div class="card mb-4 shadow-sm">
                     <img class="card-img-top" ng-src="{{tournament.poster}}" alt="Tournament Poster">
                     <div class="card-body">
                         <h5 class="card-title">{{tournament.title}}</h5>
                         <p class="card-text"><strong>Game:</strong> {{tournament.game}}</p>
                         <p class="card-text"><strong>Fee:</strong> {{tournament.fee}}</p>
-                        <p class="card-text"><strong>Prizes:</strong> {{tournament.prizes}}</p>
-                        <button style="margin-bottom: 10px; width: 150px;" ng-click="showDetails(tournament)">Know More</button>
+                        <button class="btn btn-primary btn-block" ng-click="showDetails(tournament)">Know More</button>
                     </div>
                 </div>
             </div>
         </div>
-    </center>
+    </div>
 
-    <!-- Modal Structure -->
+    <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background-color: #a11f11; display: flex; justify-content: space-between; align-items: center; padding: 10px;">
-                    <!-- Modal Title -->
-                    <h5 class="modal-title" id="modalLabel" style="flex-grow: 1; text-align: center; color: white;">
-                        {{selectedTournament.title}}
-                    </h5>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">{{selectedTournament.title}}</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                
-                
                 <div class="modal-body">
                     <p><strong>Game:</strong> {{selectedTournament.game}}</p>
                     <p><strong>Fee:</strong> {{selectedTournament.fee}}</p>
@@ -159,7 +141,7 @@
                     <p><strong>Additional Info:</strong> {{selectedTournament.info}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 80px;">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
