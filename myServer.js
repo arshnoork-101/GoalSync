@@ -15,6 +15,8 @@ app.listen(port, function () {
     console.log(`Server Started on Port ${port}`);
 });
 
+  
+
 // MySQL connection configuration
 const mysqlServer = mysql2.createConnection({
     host: process.env.MYSQL_HOST,
@@ -173,44 +175,65 @@ app.get("/publishTournaments", function(req, res){
     let path5=__dirname+"/publish-tournaments.html";
     res.sendFile(path5);
 })
-app.get("/publish-tournament", async function(req, resp) {
+app.post("/publish-tournament", async function(req, res) {
     let filename = "";
 
-    try{
-    // Check if no picture is uploaded
-    if (req.files == null ) {
-        filename = "nopic.jpg";
-    } else {
-        // Get the uploaded file
-        const poster = req.files.poster;
-        filename = poster.name;
-
-        // Define the path to save the image locally
-        let path = __dirname + "/public/uploads/" + filename;
-
-        // Move the uploaded file to the server's directory
-        req.files.poster.mv(path);
-        await cloudinary.uploader.upload(path).then(function(result){
-            filename=result.url;   //will give u the url of ur pic on cloudinary server
-            console.log(filename);
-        });
-    }
-    req.body.poster = filename; // Save the Cloudinary URL to req.body
-
-    // Save data according to the column sequence in the 'tournaments' table
-    mysqlServer.query("insert into tournaments (emailid, game, title, fee, dot, city, location, prizes, poster, info) values(?,?,?,?,?,?,?,?,?,?)", [
-        req.body.emailid, req.body.game, req.body.title,  req.body.fee, req.body.dot, req.body.city, req.body.location, req.body.prizes, req.body.poster, req.body.info             
-    ], function(err) {
-        if (err == null) {
-            resp.send("Tournament published successfully!");
+    try {
+        // Check if no picture is uploaded
+        if (!req.files || Object.keys(req.files).length === 0) {
+            filename = "nopic.jpg"; // Default image if no file is uploaded
         } else {
-            resp.send(err.message);
+            // Get the uploaded file
+            const poster = req.files.poster;
+            filename = poster.name;
+
+            // Define the path to save the image locally
+            let path = __dirname + "/public/uploads/" + filename;
+
+            // Move the uploaded file to the server's directory
+            poster.mv(path, async function(err) {
+                if (err) {
+                    return res.status(500).send("File upload failed: " + err.message);
+                }
+
+                // Upload the file to Cloudinary
+                const result = await cloudinary.uploader.upload(path);
+                filename = result.url; // Get the URL of the uploaded image on Cloudinary
+                console.log(filename);
+
+                // Update the req.body with the Cloudinary URL
+                req.body.poster = filename;
+
+                // Save data in the 'tournaments' table
+                mysqlServer.query(
+                    "INSERT INTO tournaments (emailid, game, title, fee, dot, city, location, prizes, poster, info) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    [
+                        req.body.emailid,
+                        req.body.game,
+                        req.body.title,
+                        req.body.fee,
+                        req.body.dot,
+                        req.body.city,
+                        req.body.location,
+                        req.body.prizes,
+                        req.body.poster,
+                        req.body.info
+                    ],
+                    function(err) {
+                        if (err == null) {
+                            res.send("Tournament published successfully!");
+                        } else {
+                            res.send(err.message);
+                        }
+                    }
+                );
+            });
         }
-    });
-} catch (err) {
-    resp.send("Server Error: " + err.message);
-}
+    } catch (err) {
+        res.send("Server Error: " + err.message);
+    }
 });
+
 app.get("/dashPlayer", function(req, resp){
     let path6=__dirname+"/dashPlayer.html";
     resp.sendFile(path6);
