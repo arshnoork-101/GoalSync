@@ -9,7 +9,7 @@
 - **Responsive**: Optimized for all devices using Bootstrap.
 
 ## Technologies Used:
-- **Backend**: Node.js, Express
+- **Backend**: Node.js, Express (with Nodemailer for email notifications)
 - **Frontend**: AngularJS, HTML, CSS, JavaScript, Bootstrap, jQuery
 - **AJAX**: For dynamic data fetching
 - **Database**: MySQL
