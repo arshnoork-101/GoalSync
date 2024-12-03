@@ -101,18 +101,18 @@ app.post("/profileOrganizer", async function (req, resp) {
 app.get("/search-org", (req, res) => {
   const emailid = req.query.emailid; // Get the email ID from the request
 
-  const query = "SELECT * FROM organizations WHERE emailid = ?"; // Query to find the organization
+  const query = "SELECT * FROM users WHERE emailid = ?"; // Query to find the organization
 
   mysqlServer.query(query, [emailid], (err, result) => {
     if (err) {
       return res.send({ message: "Server error: " + err.message });
     }
 
+    console.log(result);
     if (result.length > 0) {
       // If the organization is found, send the details back
       res.send({
         found: true,
-        organization: result[0].organization, // Send the organization name as an example
       });
     } else {
       // If no organization is found with the given email
@@ -126,7 +126,7 @@ app.post("/signupModal", (req, res) => {
 
   // Check if the email already exists
   mysqlServer.query(
-    "SELECT * FROM players WHERE emailid = ?",
+    "SELECT * FROM users WHERE emailid = ?",
     [emailid],
     (err, result) => {
       if (err) {
@@ -137,9 +137,9 @@ app.post("/signupModal", (req, res) => {
         return res.send("This Email already exists");
       }
 
-      // Insert new user into the players table, with current date set automatically
+      // Insert new user into the users table, with current date set automatically
       const query =
-        "INSERT INTO players (emailid, pwd, utype, status, dos) VALUES (?, ?, ?, ?, CURDATE())";
+        "INSERT INTO users (emailid, pwd, utype, status, dos) VALUES (?, ?, ?, ?, CURDATE())";
       const status = 1; // Assuming status 1 means active
 
       mysqlServer.query(query, [emailid, pwd, utype, status], (err, result) => {
@@ -157,7 +157,7 @@ app.post("/loginModal", (req, res) => {
   const { emailid, pwd } = req.body;
 
   // Query to find the user based on email and password
-  const query = "SELECT * FROM players WHERE emailid = ? AND pwd = ?";
+  const query = "SELECT * FROM users WHERE emailid = ? AND pwd = ?";
 
   mysqlServer.query(query, [emailid, pwd], (err, result) => {
     if (err) {
@@ -269,7 +269,7 @@ app.get("/update-password", function (req, resp) {
   console.log(newpwd);
 
   mysqlServer.query(
-    "update players set pwd=? where emailid=? and pwd=?",
+    "update users set pwd=? where emailid=? and pwd=?",
     [newpwd, email, currpwd],
     function (err, result) {
       console.log(result.affectedRows);
