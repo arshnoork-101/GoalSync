@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Start the Server
-const port = 2003;
+const port = 2006;
 app.listen(port, function () {
   console.log(`Server Started on Port ${port}`);
 });
@@ -384,35 +384,25 @@ require('dotenv').config();
 app.post("/send-verification-email", (req, res) => {
   const email = req.body.email;
   const transporter = nodemailer.createTransport({
-    service: "gmail", // Use your email provider's service
+    host: "smtp.gmail.com", // SMTP SERVICE
     auth: {
       user: process.env.EMAIL_USER, // From .env file
       pass: process.env.EMAIL_PASS, // From .env file
     },
   });
 
-  const mailOptions = {
+  transporter.sendMail({
     from: process.env.EMAIL_USER,
     to: email,
     subject: "Email Verification",
     text: `Welcome to Goal Sync! 🎉
-    We’re excited to have you join our community! Here, players and organizers come together to create amazing experiences.
+We’re excited to have you join our community! Here, players and organizers come together to create amazing experiences.
 
     🌟 As a Player: Find events, showcase your skills, and connect with organizers who can take you to the next level.
 
     🌟 As an Organizer: Discover talented players, host events, and build lasting collaborations.
 
     Let’s get started and make some meaningful connections! If you need help, our support team is just a click away.`,
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Error:", error);
-      res.json({ message: "Error sending verification email." });
-    } 
-    else {
-      console.log("Email sent:", info.response);
-      res.json({ message: "Verification email sent successfully." });
-    }
   });
 });
+
