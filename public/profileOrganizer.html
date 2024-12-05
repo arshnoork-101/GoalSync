@@ -24,6 +24,11 @@
      <!-- JS-3 FOR AJAX -->
     <script>
       $(document).ready(function() {
+
+        $("#btnBack").click(function(){
+        window.location.href = "dashOrganizer.html";
+      })
+
         $("#activeUser").html(localStorage.getItem("activeUser"));
         $("#emailid").val(localStorage.getItem("activeUser")).attr("readonly", true);
 
@@ -55,9 +60,10 @@
      <!-- JS-4 FOR BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
-    <div class="container mt-5">
+    <div class="container mt-5" style="position: relative;">
       <h2 class="text-center mb-4" style="margin-top: -30px;">Organizer's Profile</h2>
       <div style="height: 20px;"></div>
+      <div><button style="background-color: #a11f11; color: white; position:absolute; top: 0px;" class="btn btn-outline-primary" id="btnBack">Go Back </button></div>
       <form class="row g-3 p-4 bg-white border rounded border-blue" enctype="multipart/form-data" method="post" action="/profileOrganizer">
         
         <!-- Email -->
