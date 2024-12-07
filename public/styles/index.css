@@ -1,3 +1,10 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
     background-color: #f5f5f5; /* Light background */
     color: #333; /* Dark text for readability */
@@ -100,3 +107,56 @@ body {
     text-decoration: underline; /* Underline the active link */
     color: #a11f11; /* Change the text color to the primary color */
   }
+
+/* Map Made Responsive */
+  .map-reachme{
+    width: 100%;
+    max-width: 100%;
+  }
+
+.navbar-collapse {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  justify-content: center; /* Center the items horizontally */
+}
+
+.navbar-nav {
+  text-align: center; /* Center align the nav items */
+}
+
+.navbar-nav .nav-link {
+  padding: 10px 0; /* Add vertical padding for spacing */
+}
+
+/* Style the navbar toggler button */
+.navbar-toggler {
+  border: none;
+  background-color: transparent; /* Ensure background is transparent */
+}
+
+/* Basic style for the navbar */
+/* .navbar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* Hidden off-screen 
+  width: 250px; /* Width of the navbar 
+  height: 100%; /* Full height 
+  background-color: #ffffff;
+  transition: left 0.3s ease;
+} */
+
+/* Style for showing the navbar */
+.navbar.show {
+  left: 0; /* Move the navbar into view */
+}
+
+/* Toggle button */
+.navbar-toggler {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1001; /* Ensure it is above the navbar */
+}
+
+
+
