@@ -74,12 +74,12 @@ h1 {
     color: black;
 }
 
-.btn-primary {
+.btn-danger {
     background-color: #a11f11;
     border-color: #a11f11;
 }
 
-.btn-primary:hover {
+.btn-danger:hover {
     background-color: #800000; /* Darker maroon */
 }
 

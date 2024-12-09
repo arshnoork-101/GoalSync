@@ -31,12 +31,12 @@ body {
     color: #666666; /* Light gray for card text */
   }
 
-  .btn-primary {
+  .btn-danger {
     background-color: #a11f11; /* Maroon button background */
     border-color: #a11f11; /* Maroon border */
   }
 
-  .btn-primary:hover {
+  .btn-danger:hover {
     background-color: #800000; /* Darker maroon on hover */
     border-color: #800000; /* Darker maroon border on hover */
   }
@@ -45,4 +45,8 @@ body {
     max-width: 100px;
     margin: 10px;
     border: 2px solid #dcdcdc; /* Light gray border for images */
+  }
+  .btn-danger:active{
+    background-color: #800000; /* Darker maroon on hover */
+    border-color: #800000; /* Darker maroon border on hover */
   }

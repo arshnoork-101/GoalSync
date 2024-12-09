@@ -134,18 +134,6 @@ body {
   background-color: transparent; /* Ensure background is transparent */
 }
 
-/* Basic style for the navbar */
-/* .navbar {
-  position: fixed;
-  top: 0;
-  left: -250px; /* Hidden off-screen 
-  width: 250px; /* Width of the navbar 
-  height: 100%; /* Full height 
-  background-color: #ffffff;
-  transition: left 0.3s ease;
-} */
-
-/* Style for showing the navbar */
 .navbar.show {
   left: 0; /* Move the navbar into view */
 }

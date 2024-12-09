@@ -10,11 +10,11 @@ body {
     color: black; 
     font-weight:500;
   }
-  .btn-outline-primary {
+  .btn-outline-danger {
     background-color: #a11f11; /* Greyish Maroon on hover */
     color: white;
   }
-  .btn-outline-primary:hover {
+  .btn-outline-danger:hover {
     background-color: #800000; /* Darker greyish maroon on hover */
     color: white; /* White text on hover */
   }
