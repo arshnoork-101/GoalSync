@@ -26,7 +26,7 @@
         $("#publishForm").submit(function (e) {
           e.preventDefault(); // Prevent the default form submission
 
-          let email = $("#emailid").val();
+          let emailid = $("#emailid").val();
           let game = $("#game").val();
           let title = $("#title").val();
           let fee = $("#fee").val();
@@ -39,7 +39,7 @@
 
           // Prepare the form data object
           let formData = new FormData();
-          formData.append("email", email);
+          formData.append("emailid", emailid);
           formData.append("game", game);
           formData.append("title", title);
           formData.append("fee", fee);

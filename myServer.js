@@ -219,9 +219,10 @@ app.post("/publish-tournament", async function (req, res) {
         // Update the req.body with the Cloudinary URL
         req.body.poster = filename;
 
+        console.log(req.body);
         // Save data in the 'tournaments' table
         mysqlServer.query(
-          "INSERT INTO tournaments (emailid, game, title, fee, dot, city, location, prizes, poster, info) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "INSERT INTO tournaments (emailid, game, title, fee, dot, city, location, prizes, poster, info) VALUES (?,?,?,?,?,?,?,?,?,?)",
           [
             req.body.emailid,
             req.body.game,
