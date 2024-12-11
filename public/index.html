@@ -149,9 +149,75 @@
         });
       });
     </script>
-  </head>
+    <style>
+      /* Styling the outer popup container */
+      #outerdiv {
+  background-color: #f5f5f5;
+  color: black;
+  width: auto;
+  border-radius: 8px;
+  margin: 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 0 3px #f5f5f5;
+  position: fixed;
+  top: 60px; /* Fixed vertical position */
+  right: 0; /* Start at the left edge of the screen */
+  z-index: 1000; /* To have it hover over other elements */
+  animation: slideFromRight 2s ease-out forwards; /* Slide-in animation */
+}
+    
+      /* Inner text styling */
+      #innerdiv {
+        padding-bottom: -10px;
+        padding-top: 10px;
+        text-align: center;
+        font-size: 16px;
+      }
+    
+      /* MY NOTES:
+      Keyframes in CSS define the steps of an animation, specifying how an element's properties should change at different points during the animation's duration.
+      The @keyframes rule includes a sequence of styles, starting with from (0%) and ending with to (100%), or custom percentages for intermediate steps. 
+      Keyframes describe:
+      1) The states of an element at various points during an animation.
+      2) The transition of properties (e.g., position, color, opacity) over time.
+      SYNTAX:
+      @keyframes animationName {
+      from { 
+      property: value;   Initial state
+      }
+      to { 
+      property: value;   Final state
+      }
+  }
+      */
 
-  <body>
+      /* SlideFromLeft animation */
+      @keyframes slideFromRight {
+  from {
+    transform: translateX(100%); /* Start off the screen to the left */
+  }
+  to {
+    transform: translateX(0); /* End at its original position */
+  }
+}
+    </style>
+    </head>
+    
+    <body>
+      <!-- Popup Welcome -->
+      <div id="outerdiv">
+        <div id="innerdiv">
+          🎉 <strong>Welcome to Goal Sync!</strong> 🎯
+          <p>&nbsp; We're here to inspire and empower.</p>     
+        </div>
+      </div>
+    </body>    
+
+
+
     <!-- Navbar with Buttons -->
     <nav class="navbar navbar-expand-lg" style="background-color: #f5f5f5;;">
       <div class="container-fluid"           
