@@ -65,6 +65,8 @@
             $.ajax(obj)
               .done(function (resp) {
                 alert("Password Updated Successfully");
+                $("#txtCurrPwd").val(""); // Clear current password field
+                $("#txtNewPwd").val("");  // Clear new password field
               })
               .fail(function (err) {
                 alert("Server Error.");
