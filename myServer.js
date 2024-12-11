@@ -91,7 +91,10 @@ app.post("/profileOrganizer", async function (req, resp) {
       req.body.socialhandle,
     ],
     function (err) {
-      if (err == null) resp.send("Record Saved Successfully");
+      if (err == null) {
+        resp.send("Record Saved Successfully");
+        window.location.replace(window.location.href);
+      }
       else resp.send(err.message);
     }
   );
@@ -372,8 +375,13 @@ app.post("/profilePlayer", async function (req, resp) {
       req.body.socialhandle,
     ],
     function (err) {
-      if (err == null) resp.send("Record Saved Successfully");
-      else resp.send(err.message);
+      if (err == null) 
+      {
+        resp.send("Record Saved Successfully");
+        window.location.replace(window.location.href); 
+      }
+      else 
+      resp.send(err.message);
     }
   );
 });
