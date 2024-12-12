@@ -15,7 +15,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <title>Dashboard</title>
+    <title>Goal Sync</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/da9gwrtit/image/upload/v1733966638/hjquci399fwkgu9ri0sm.png"> 
     <link rel="stylesheet" href="./styles/index.css" />
 
     <script>
@@ -149,13 +150,53 @@
         });
       });
     </script>
+    <style>
+    #myChat {
+      /* For the inner Icon */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      /* Overall Icon */
+      position: fixed;
+      bottom: 50px;
+      right: 30px;
+      width: 60px; 
+      height: 60px; 
+      z-index: 99999; /* Appear over other elements  */
+      /* Custom Styling */
+      background-color: #a11f11;
+      color: white;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      font-size: 24px; /* Icon size */
+    }
+
+    #myChat:hover {
+      background-color: #800000;
+    }
+    </style>
     </head>
     
     <body>
+      <!-- Chat With Us -->
+      <div id="chatContainer">
+        <div id="myChat">
+            <i class="fa-brands fa-rocketchat"></i>
+        </div>
+        <div id="myMsgContainer">
+          <p id="myMsg"> Hi, I'm Sam. Ask me your questions.
+          </p>
+        </div>
+    </div>    
+
+
+
       <!-- Popup Welcome -->
       <div id="outerdiv">
         <div id="innerdiv">
-          🎉 <strong>Welcome to Goal Sync!</strong> 🎯
+          <strong>Welcome to Goal Sync!</strong> 🎯
           <span style="display: block;">&nbsp; A small step towards big success. Start today!</span>     
         </div>
       </div>
@@ -634,7 +675,8 @@
 
     <!-- Footer Section -->
     <footer class="bg-dark text-white text-center py-3 mt-4">
-      <p>&copy; 2024. All Rights Reserved.</p>
+      © 2024 <strong>Goal Sync</strong>. All rights reserved.
+      <br>
     </footer>
 
     <!-- Bootstrap JS (for functionality like the navbar toggle and carousel) -->

@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Start the Server
-const port = 2005;
+const port = 2006;
 app.listen(port, function () {
   console.log(`Server Started on Port ${port}`);
 });
