@@ -52,7 +52,7 @@ body {
 
   /* Additional Styles */
   .navbar {
-    background-color: white; /* White background for navbar */
+    background-color: #f5f5f5; /* White background for navbar */
   }
   .navbar-brand,
   .nav-link {
@@ -138,8 +138,19 @@ body {
   left: 0; /* Move the navbar into view */
 }
 
+.myNavBar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0px;
+  z-index: 1000;
+  width: 100%;
+}
+
 /* Toggle button */
 .navbar-toggler {
+  display: flex;
   position: fixed;
   top: 10px;
   left: 10px;
@@ -167,8 +178,7 @@ body {
     
       /* Inner text styling */
       #innerdiv {
-        padding-bottom: -10px;
-        padding-top: 10px;
+        padding: 10px 5px;
         text-align: center;
         font-size: 16px;
       }
@@ -190,7 +200,7 @@ body {
   }
       */
 
-      /* SlideFromLeft animation */
+      /* SlideFromRight animation */
       @keyframes slideFromRight {
   from {
     transform: translateX(100%); /* Start off the screen to the left */
