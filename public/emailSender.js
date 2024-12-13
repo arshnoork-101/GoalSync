@@ -8,7 +8,7 @@ async function sendSignUpEmail(userEmail, userType) {
     service: 'gmail', // Use your email service provider
     auth: {
       user: process.env.EMAIL_USER, // Email user from environment variable
-      pass: process.env.EMAIL_PASS  // Email password or app-specific password from environment variable
+      pass: process.env.EMAIL_PASS  // App-specific password from environment variable
     }
   });
 

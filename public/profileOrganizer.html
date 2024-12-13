@@ -32,12 +32,11 @@
         $("#activeUser").html(localStorage.getItem("activeUser"));
         $("#emailid").val(localStorage.getItem("activeUser")).attr("readonly", true);
 
-        // Trigger search when the "Search" button is clicked
         $('#searchorg').on('click', function() {
-          var email = $('#emailid').val(); // Get the value of the email input field
+          var email = $('#emailid').val(); 
     
           let obj={
-            url: '/search-org', // The route for searching in the database
+            url: '/search-org', 
             type:"get",
             data:{
               emailid:email
