@@ -21,17 +21,15 @@
 
     <script>
       $(document).ready(function () {
-        // =======================================================================
         $("#signupForm").on("submit", function (event) {
           event.preventDefault(); // Prevent default form submission
 
-          const email = $("#txtEmail").val(); // Get the email address entered by the user
+          const email = $("#txtEmail").val(); 
 
-          // Perform basic validation (can be expanded as needed)
           if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             $.ajax({
               type: "POST",
-              url: "/send-verification-email", // URL of the server-side endpoint
+              url: "/send-verification-email", 
               data: { email: email },
               success: function (response) {
                 alert("Verification email sent!");
@@ -45,7 +43,6 @@
           }
         });
 
-        // ========================================================================
         $("#eye2").click(function () {
           //Getter
           if ($("#LoginPassword").attr("type") == "password") {
@@ -61,14 +58,11 @@
 
         // Show-Hide Password
         $("#eye").click(function () {
-          //Getter
           if ($("#txtPassword").attr("type") == "password") {
-            $("#txtPassword").prop("type", "text"); //Setter
-            // $(this).val("Hide"); //this==#txtPassword
+            $("#txtPassword").prop("type", "text"); 
             $("#eye").addClass("fa-eye").removeClass("fa-eye-slash");
           } else {
             $("#txtPassword").prop("type", "password");
-            // $(this).val("Show"); //this==#txtPassword
             $("#eye").addClass("fa-eye-slash").removeClass("fa-eye");
           }
         });
@@ -150,33 +144,6 @@
         });
       });
     </script>
-    <style>
-    #myChat {
-      /* For the inner Icon */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      /* Overall Icon */
-      position: fixed;
-      bottom: 50px;
-      right: 30px;
-      width: 60px; 
-      height: 60px; 
-      z-index: 99999; /* Appear over other elements  */
-      /* Custom Styling */
-      background-color: #a11f11;
-      color: white;
-      border-radius: 50%;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
-      font-size: 24px; /* Icon size */
-    }
-
-    #myChat:hover {
-      background-color: #800000;
-    }
-    </style>
     </head>
     
     <body>
@@ -512,9 +479,6 @@
               <p class="card-text">
                 Become an organizer and create your events easily.
               </p>
-              <!-- <a href="#" class="btn btn-primary mt-auto" -->
-              <!-- >Organize Tournaments</a -->
-              <!-- > -->
             </div>
           </div>
         </div>
@@ -536,7 +500,6 @@
                 Browse through scheduled events and competitions and get
                 involved.
               </p>
-              <!-- <a href="#" class="btn btn-primary mt-auto">Fetch Tournaments</a> -->
             </div>
           </div>
         </div>
@@ -558,7 +521,6 @@
                 Participate in tournaments and stand a chance for substantial
                 rewards.
               </p>
-              <!-- <a href="#" class="btn btn-primary mt-auto">Get More Details</a> -->
             </div>
           </div>
         </div>
@@ -580,7 +542,6 @@
                 Explore training opportunities and skills validation to earn
                 valuable certifications.
               </p>
-              <!-- <a href="#" class="btn btn-primary mt-auto">Earn Recognition</a> -->
             </div>
           </div>
         </div>
@@ -672,7 +633,7 @@
       <br>
     </footer>
 
-    <!-- Bootstrap JS (for functionality like the navbar toggle and carousel) -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -36,7 +36,6 @@
               type: "get",
               url: "/update-password",
               data: {
-                // left anything, right upar wale
                 txtEmail: emailid,
                 txtCurrPass: currpwd,
                 txtNewPass: newpwd
@@ -45,8 +44,8 @@
             $.ajax(obj)
               .done(function (resp) {
                 alert("Password Updated Successfully");
-                $("#txtCurrPwd").val(""); // Clear current password field
-                $("#txtNewPwd").val("");  // Clear new password field
+                $("#txtCurrPwd").val(""); 
+                $("#txtNewPwd").val("");  
               })
               .fail(function (err) {
                 alert("Server Error.");
@@ -59,7 +58,6 @@
           return;
         }
 
-        // alert(localStorage.getItem("activeUser"));
         $("#activeUser").html(localStorage.getItem("activeUser"));
 
         $("#btnLogout").click(function () {
@@ -67,7 +65,6 @@
           if (!userConfirmed) {
             event.preventDefault(); // Cancel the logout action
           } else {
-            // Proceed with logout
             localStorage.removeItem("activeUser");
             window.location.href = "index.html";
           }
@@ -200,7 +197,6 @@
     </div>
 
     <!-- Modal -->
-    <!-- ====================================== -->
     <div
       class="modal fade"
       id="exampleModal"

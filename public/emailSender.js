@@ -3,9 +3,9 @@ const nodemailer = require('nodemailer');
 
 // Function to send an email
 async function sendSignUpEmail(userEmail, userType) {
-  // Create a transporter object using SMTP transport
+  // A transporter object using SMTP transport
   let transporter = nodemailer.createTransport({
-    service: 'gmail', // Use your email service provider
+    service: 'gmail', 
     auth: {
       user: process.env.EMAIL_USER, // Email user from environment variable
       pass: process.env.EMAIL_PASS  // App-specific password from environment variable

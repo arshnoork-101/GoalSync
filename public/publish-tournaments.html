@@ -24,7 +24,7 @@
           .attr("readonly", true);
 
         $("#publishForm").submit(function (e) {
-          e.preventDefault(); // Prevent the default form submission
+          e.preventDefault(); 
 
           let emailid = $("#emailid").val();
           let game = $("#game").val();
@@ -37,7 +37,6 @@
           let poster = $("#poster")[0].files[0];
           let info = $("#info").val();
 
-          // Prepare the form data object
           let formData = new FormData();
           formData.append("emailid", emailid);
           formData.append("game", game);
