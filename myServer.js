@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 require("dotenv").config(); // Load .env file into process.env
 
 var app = express(); // Express framework
+app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -414,22 +415,16 @@ We’re excited to have you join our community! Here, players and organizers com
     Let’s get started and make some meaningful connections! If you need help, our support team is just a click away.`,
   });
 });
-
-app.post("/chatMessage", function(req, resp){
+// CHAT WITH US
+app.post("/chatMessage", (req, resp) => {
   const { name, email, phone, message } = req.body;
 
-  const query= "INSERT INTO CHAT (name, email, phone, message) VALUES (?,?,?,?)";
-  mysqlServer.query(query,   [
-      name, email, phone, message
-    ],
-    function (err, result) {
-      if (err == null) 
-      {
-        resp.send("Thank You");
-      }
-      else 
-      con
-      console.log(err.message);
+  const query = "INSERT INTO CHAT (name, email, phone, message) VALUES (?,?,?,?)";
+  mysqlServer.query(query, [name, email, phone, message], function (err, result) {
+    if (err == null) {
+      resp.send("Thank You...")
+          } else {
+      resp.send("Server Error"); 
     }
-  );
-})
+  });
+});
