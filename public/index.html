@@ -153,6 +153,35 @@
         $("#ChatOption").on("click", function () {
           $("#modalForm").css("display", "flex");
         });
+
+        // Firing ajax request for chat with us
+        ("#chatLeave").on("click", function(){
+          const name=("#name").val();
+          const email=("#email").val();
+          const phone=("#phone").val();
+          const message=("#message").val();
+
+          let obj = {
+            type: "post",
+            url: "/chatMessage",
+            contentType: "application/json",
+            data: JSON.stringify({
+              name:name,
+              email: email,
+              phone: phone,
+              message: message
+            }),
+          };
+
+          $.ajax(obj)
+            .done(function (response) {
+              alert("Thank you for your message. Our team has received it and will respond shortly. We appreciate your patience.");
+            })
+            .fail(function (err) {
+              alert("Server Error.");
+            });
+          
+        })
       });
     </script>
   </head>
@@ -263,7 +292,7 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" maxlength="200">Leave a Message</button>
+            <button type="submit" class="btn btn-primary" maxlength="200" id="chatLeave">Leave a Message</button>
           </div>
         </div>
       </div>
