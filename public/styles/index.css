@@ -277,10 +277,10 @@ body {
   gap: 10px;
 }
 
-.modal-body input[type="text"],
-.modal-body input[type="tel"],
-.modal-body input[type="email"],
-.modal-body textarea {
+.myModalBody input[type="text"],
+.myModalBody input[type="tel"],
+.myModalBody input[type="email"],
+.myModalBody textarea {
   width: 100%;
   padding: 10px;
   font-size: 0.9rem;

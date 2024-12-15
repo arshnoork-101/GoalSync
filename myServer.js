@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Start the Server
-const port = 2006;
+const port = 2008;
 app.listen(port, function () {
   console.log(`Server Started on Port ${port}`);
 });
@@ -415,6 +415,7 @@ We’re excited to have you join our community! Here, players and organizers com
     Let’s get started and make some meaningful connections! If you need help, our support team is just a click away.`,
   });
 });
+
 // CHAT WITH US
 app.post("/chatMessage", (req, resp) => {
   const { name, email, phone, message } = req.body;

@@ -22,17 +22,71 @@
       href="https://res.cloudinary.com/da9gwrtit/image/upload/v1733966638/hjquci399fwkgu9ri0sm.png"
     />
     <link rel="stylesheet" href="./styles/index.css" />
-
     <script>
-      $(document).ready(function () {
-        document.querySelector("#modalForm").style.display = "none";
-
+      $(document).ready(function () {    
+        // Show-Hide Login Password
+        $("#eyeLogin").click(function () {
+          console.log("Eye2 clicked"); // Debug log
+          if ($("#LoginPassword").attr("type") == "password") {
+            $("#LoginPassword").prop("type", "text");
+            $("#eyeLogin").addClass("fa-eye").removeClass("fa-eye-slash");
+          } else {
+            $("#LoginPassword").prop("type", "password");
+            $("#eyeLogin").addClass("fa-eye-slash").removeClass("fa-eye");
+          }
+        });
+    
+        // Show-Hide Signup Password
+        $("#eyeSignUp").click(function () {
+          if ($("#txtPassword").attr("type") == "password") {
+            $("#txtPassword").prop("type", "text");
+            $("#eyeSignUp").addClass("fa-eye").removeClass("fa-eye-slash");
+          } else {
+            $("#txtPassword").prop("type", "password");
+            $("#eyeSignUp").addClass("fa-eye-slash").removeClass("fa-eye");
+          }
+        });
+    
+        // Email Validation
+        $("#txtEmail").keyup(function () {
+          const email = $(this).val();
+          const eexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for email validation
+          if (eexp.test(email)) {
+            $("#errEmail").html("Valid").css("color", "green");
+          } else {
+            $("#errEmail").html("Invalid Email ID").css("color", "red");
+          }
+        });
+    
+        // Signup Form Submission
         $("#signupForm").on("submit", function (event) {
-          event.preventDefault(); // Prevent default form submission
+          event.preventDefault();
 
-          const email = $("#txtEmail").val();
-
-          if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          const txtEmail = $("#txtEmail").val();
+          const txtPassword = $("#txtPassword").val();
+          const userType = $("#uType").val();
+    
+          let obj = {
+            type: "post",
+            url: "/signupModal",
+            contentType: "application/json",
+            data: JSON.stringify({
+              emailid: txtEmail,
+              pwd: txtPassword,
+              utype: userType,
+            }),
+          };
+    
+          $.ajax(obj)
+            .done(function (response) {
+              alert(response);
+            })
+            .fail(function () {
+              alert("Server Error");
+            });
+            
+            // Send Verification Email on Sign Up
+            if (txtEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             $.ajax({
               type: "POST",
               url: "/send-verification-email",
@@ -47,65 +101,14 @@
           } else {
             alert("Invalid email address.");
           }
+            
         });
-
-        $("#eye2").click(function () {
-          //Getter
-          if ($("#LoginPassword").attr("type") == "password") {
-            $("#LoginPassword").prop("type", "text"); //Setter
-            // $(this).val("Hide"); //this==#txtPassword
-            $("#eye2").addClass("fa-eye").removeClass("fa-eye-slash");
-          } else {
-            $("#LoginPassword").prop("type", "password");
-            // $(this).val("Show"); //this==#txtPassword
-            $("#eye2").addClass("fa-eye-slash").removeClass("fa-eye");
-          }
-        });
-
-        // Show-Hide Password
-        $("#eye").click(function () {
-          if ($("#txtPassword").attr("type") == "password") {
-            $("#txtPassword").prop("type", "text");
-            $("#eye").addClass("fa-eye").removeClass("fa-eye-slash");
-          } else {
-            $("#txtPassword").prop("type", "password");
-            $("#eye").addClass("fa-eye-slash").removeClass("fa-eye");
-          }
-        });
-
-        // Sign-Up form submission
-        $("#signupForm").on("submit", function (event) {
-          event.preventDefault();
-          const txtEmail = $("#txtEmail").val();
-          const txtPassword = $("#txtPassword").val();
-          const userType = $("#uType").val();
-
-          let obj = {
-            type: "post",
-            url: "/signupModal",
-            contentType: "application/json",
-            data: JSON.stringify({
-              emailid: txtEmail,
-              pwd: txtPassword,
-              utype: userType,
-            }),
-          };
-
-          $.ajax(obj)
-            .done(function (response) {
-              alert(response);
-            })
-            .fail(function (err) {
-              alert("Server Error");
-            });
-        });
-
-        // Login form submission
+        // Login Form Submission
         $("#loginForm").on("submit", function (event) {
           event.preventDefault();
           const loginEmail = $("#LoginEmail").val();
           const loginPassword = $("#LoginPassword").val();
-
+    
           let obj = {
             type: "post",
             url: "/loginModal",
@@ -115,76 +118,61 @@
               pwd: loginPassword,
             }),
           };
-
+    
           $.ajax(obj)
             .done(function (response) {
-              if (response.utype == "Organizer" || response.utype == "Player") {
+              if (response.utype === "Organizer" || response.utype === "Player") {
                 alert("Login successful! User type: " + response.utype);
-                if (response.utype == "Organizer") {
-                  localStorage.setItem("activeUser", loginEmail);
-                  location.href = "dashOrganizer.html";
-                } else if (response.utype == "Player") {
-                  localStorage.setItem("activeUser", loginEmail);
-                  location.href = "dashPlayer.html";
-                }
+                localStorage.setItem("activeUser", loginEmail);
+                location.href =
+                  response.utype === "Organizer"
+                    ? "dashOrganizer.html"
+                    : "dashPlayer.html";
               } else {
                 alert("Invalid UserID/Pwd...");
               }
             })
-            .fail(function (err) {
+            .fail(function () {
               alert("Server Error.");
             });
         });
-
-        // Email validation
-        $("#txtEmail").keyup(function () {
-          let email = $("#txtEmail").val();
-          let eexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for email validation
-          let res = eexp.test(email);
-
-          if (res) {
-            $("#errEmail").html("It is Valid").css("color", "green");
-          } else {
-            $("#errEmail").html("Invalid Email ID").css("color", "red");
-          }
-        });
-
+    
         // Chat With Us
         $("#ChatOption").on("click", function () {
           $("#modalForm").css("display", "flex");
         });
-
-        // Firing ajax request for chat with us
-        $("#chatForm").on("submit", function(event){
+    
+        // Chat Form Submission
+        $("#chatForm").on("submit", function (event) {
           event.preventDefault();
-
-          let name=$("#name").val();
-          let email=$("#email").val();
-          let phone=$("#phone").val();
-          let message=$("#message").val();
-
+          const name = $("#name").val();
+          const email = $("#email").val();
+          const phone = $("#phone").val();
+          const message = $("#message").val();
+    
           let obj = {
             type: "post",
             url: "/chatMessage",
             contentType: "application/json",
             data: JSON.stringify({
-              name:name,
+              name: name,
               email: email,
               phone: phone,
-              message: message
+              message: message,
             }),
           };
-
+    
           $.ajax(obj)
-            .done(function (response) {
-              alert("Thank you for your message. Our team has received it and will respond shortly. We appreciate your patience.");
+            .done(function () {
+              alert(
+                "Thank you for your message. Our team has received it and will respond shortly. We appreciate your patience."
+              );
             })
-            .fail(function (err) {
+            .fail(function () {
               alert("Server Error.");
-            });          
-        })
+            });
+        });
       });
-
     </script>
   </head>
   <body> 
@@ -225,10 +213,10 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body myModalBody">
             <p style="size: 0.8em;"><span id="mySpan"> * </span>indicates a required field</p>
             <form id="chatForm" method="post" action="/chatMessage">
-              <label for="name">Your Name*</label>
+              <label for="name">Your Name <span>*</span></label>
               <input              
                 type="text"
                 id="name"
@@ -417,7 +405,7 @@
               <div class="mb-3">
                 <label for="SignUpPassword" class="form-label">Password:</label>
                 <div
-                  style="display: flex; align-items: center; position: relative"
+                  style="display: flex; align-items: center; position: relative; outline: none;"
                 >
                   <input
                     type="password"
@@ -430,10 +418,10 @@
                   <i
                     class="fa-solid fa-eye-slash"
                     style="cursor: pointer; position: absolute; right: 10px"
-                    id="eye"
+                    id="eyeSignUp"
                   ></i>
                 </div>
-                <span style="font-size: 0.8em"
+                <span style="font-size: 0.8em;  outline: none;"
                   ><i>&nbsp; Generate a strong password</i></span
                 >
               </div>
@@ -502,7 +490,7 @@
               <div class="mb-3">
                 <label for="LoginPassword" class="form-label">Password:</label>
                 <div
-                  style="display: flex; position: relative; align-items: center"
+                  style="display: flex; position: relative; align-items: center;  outline: none;"
                 >
                   <input
                     type="password"
@@ -515,7 +503,7 @@
                   <i
                     class="fa-solid fa-eye-slash"
                     style="cursor: pointer; position: absolute; right: 10px"
-                    id="eye2"
+                    id="eyeLogin"
                   ></i>
                 </div>
               </div>
