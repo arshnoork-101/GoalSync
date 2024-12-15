@@ -155,11 +155,13 @@
         });
 
         // Firing ajax request for chat with us
-        ("#chatLeave").on("click", function(){
-          const name=("#name").val();
-          const email=("#email").val();
-          const phone=("#phone").val();
-          const message=("#message").val();
+        $("#chatForm").on("submit", function(event){
+          event.preventDefault();
+
+          const name=$("#name").val();
+          const email=$("#email").val();
+          const phone=$("#phone").val();
+          const message=$("#message").val();
 
           let obj = {
             type: "post",
@@ -179,13 +181,13 @@
             })
             .fail(function (err) {
               alert("Server Error.");
-            });
-          
+            });          
         })
       });
+
     </script>
   </head>
-  <body>
+  <body> 
     <!-- Button trigger modal -->
     <button
       type="button"
@@ -210,7 +212,7 @@
       aria-labelledby="staticBackdropLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog myModal">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-4" id="staticBackdropLabel">
@@ -224,8 +226,8 @@
             ></button>
           </div>
           <div class="modal-body">
-            <p>* Required Fields</p>
-            <form action="/submit" method="POST">
+            <p style="size: 0.8em;"><span id="mySpan"> * </span>indicates a required field</p>
+            <form id="chatForm">
               <label for="name">Your Name*</label>
               <input
                 type="text"
@@ -234,8 +236,7 @@
                 placeholder="Enter Your Full Name"
                 required
               />
-
-              <label for="phone">Phone Number*</label>
+              <label for="phone">Phone Number <span id="mySpan">*</span></label>
               <input
                 type="tel"
                 id="phone"
@@ -244,7 +245,7 @@
                 required
               />
 
-              <label for="email">E-mail*</label>
+              <label for="email">E-mail <span id="mySpan">*</span></label>
               <input
                 type="email"
                 id="email"
@@ -252,8 +253,7 @@
                 placeholder="Enter your email"
                 required
               />
-
-              <label for="message">Message*</label>
+              <label for="message">Message <span id="mySpan">*</span></label>
               <textarea
                 id="message"
                 name="message"
@@ -278,8 +278,8 @@
                 <input type="checkbox" id="terms" name="terms" required />
                 <label for="terms"
                   >I acknowledge
-                  <a href="/terms" target="_blank">Terms of Service</a> and
-                  <a href="/privacy" target="_blank">Privacy Policy</a>*</label
+                  <a href="./terms.html" target="_blank">Terms of Service</a> and
+                  <a href="./privacy.html" target="_blank">Privacy Policy</a>*</label
                 >
               </div>
             </form>

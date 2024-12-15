@@ -415,3 +415,21 @@ We’re excited to have you join our community! Here, players and organizers com
   });
 });
 
+app.post("/chatMessage", function(req, resp){
+  const { name, email, phone, message } = req.body;
+
+  const query= "INSERT INTO CHAT (name, email, phone, message) VALUES (?,?,?,?)";
+  mysqlServer.query(query,   [
+      name, email, phone, message
+    ],
+    function (err, result) {
+      if (err == null) 
+      {
+        resp.send("Thank You");
+      }
+      else 
+      con
+      console.log(err.message);
+    }
+  );
+})

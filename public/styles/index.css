@@ -257,17 +257,24 @@ body {
 }
 
 /* CHAT WITH US */
+.myModal {
+  max-width: 700px; 
+  margin: auto; 
+}
+
 .modal-body {
+  width: 100%;
   font-family: Arial, sans-serif;
   color: #333; /* Standard text color */
   line-height: 1.6;
 }
 
 .modal-body form {
+  width: 100%;
   display: flex;
   flex-direction: column; 
   justify-content: center;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .modal-body input[type="text"],
@@ -292,6 +299,7 @@ body {
   box-shadow: 0 0 5px grey;
   outline: none;
 }
+
 a{
   color: #800000;
 }
@@ -310,4 +318,8 @@ a{
 
 .checkbox-container input {
   margin-top: 3px;
+}
+
+#mySpan{
+  color: rgb(145, 73, 85);
 }
