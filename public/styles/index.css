@@ -160,7 +160,7 @@ body {
   position: fixed;
   top: 10px;
   left: 10px;
-  z-index: 1001; 
+  z-index: 1000; 
 }
 
 #outerdiv {
@@ -243,7 +243,7 @@ body {
   right: 30px;
   width: 60px; 
   height: 60px; 
-  z-index: 99999; 
+  z-index: 1000; 
   background-color: #a11f11;
   color: white;
   border-radius: 50%;
@@ -254,4 +254,60 @@ body {
 
 #myChat:hover {
   background-color: #800000;
+}
+
+/* CHAT WITH US */
+.modal-body {
+  font-family: Arial, sans-serif;
+  color: #333; /* Standard text color */
+  line-height: 1.6;
+}
+
+.modal-body form {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  gap: 10px; 
+}
+
+.modal-body input[type="text"],
+.modal-body input[type="tel"],
+.modal-body input[type="email"],
+.modal-body textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  /* inset shadows the canvas onto the box from inside  */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.5s ease;
+}
+
+.modal-body input[type="text"]:focus,
+.modal-body input[type="tel"]:focus,
+.modal-body input[type="email"]:focus,
+.modal-body textarea:focus {
+  border-color: none;
+  box-shadow: 0 0 5px grey;
+  outline: none;
+}
+a{
+  color: #800000;
+}
+.modal-body textarea {
+  height: 100px;
+  resize: none; 
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.checkbox-container input {
+  margin-top: 3px;
 }

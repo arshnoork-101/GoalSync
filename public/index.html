@@ -16,20 +16,26 @@
       referrerpolicy="no-referrer"
     />
     <title>Goal Sync</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/da9gwrtit/image/upload/v1733966638/hjquci399fwkgu9ri0sm.png"> 
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://res.cloudinary.com/da9gwrtit/image/upload/v1733966638/hjquci399fwkgu9ri0sm.png"
+    />
     <link rel="stylesheet" href="./styles/index.css" />
 
     <script>
       $(document).ready(function () {
+        document.querySelector("#modalForm").style.display = "none";
+
         $("#signupForm").on("submit", function (event) {
           event.preventDefault(); // Prevent default form submission
 
-          const email = $("#txtEmail").val(); 
+          const email = $("#txtEmail").val();
 
           if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             $.ajax({
               type: "POST",
-              url: "/send-verification-email", 
+              url: "/send-verification-email",
               data: { email: email },
               success: function (response) {
                 alert("Verification email sent!");
@@ -59,7 +65,7 @@
         // Show-Hide Password
         $("#eye").click(function () {
           if ($("#txtPassword").attr("type") == "password") {
-            $("#txtPassword").prop("type", "text"); 
+            $("#txtPassword").prop("type", "text");
             $("#eye").addClass("fa-eye").removeClass("fa-eye-slash");
           } else {
             $("#txtPassword").prop("type", "password");
@@ -142,30 +148,142 @@
             $("#errEmail").html("Invalid Email ID").css("color", "red");
           }
         });
+
+        // Chat With Us
+        $("#ChatOption").on("click", function () {
+          $("#modalForm").css("display", "flex");
+        });
       });
     </script>
-    </head>
-    
-    <body>
-      <!-- Chat With Us -->
+  </head>
+  <body>
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop"
+    >
       <div id="chatContainer">
         <div id="myChat">
-            <i class="fa-brands fa-rocketchat"></i>
-        </div>
-    </div> 
-    <!-- Popup Welcome -->
-      <div id="outerdiv">
-        <div id="innerdiv">
-          <strong>Welcome to Goal Sync!</strong> 🎯
-          <span style="display: block;">&nbsp; A small step towards big success. Start today!</span>     
+          <i class="fa-brands fa-rocketchat" id="ChatOption"></i>
         </div>
       </div>
-    </body>    
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-4" id="staticBackdropLabel">
+              Chat With Us
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>* Required Fields</p>
+            <form action="/submit" method="POST">
+              <label for="name">Your Name*</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter Your Full Name"
+                required
+              />
+
+              <label for="phone">Phone Number*</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="XXX-XXX-XXXX"
+                required
+              />
+
+              <label for="email">E-mail*</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+              />
+
+              <label for="message">Message*</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Your message here..."
+                required
+              ></textarea>
+
+              <div class="checkbox-container">
+                <input
+                  type="checkbox"
+                  id="ip-logging"
+                  name="ip-logging"
+                  required
+                />
+                <label for="ip-logging"
+                  >I acknowledge that my email address is being
+                  logged for monitoring purposes.*</label
+                >
+              </div>
+
+              <div class="checkbox-container">
+                <input type="checkbox" id="terms" name="terms" required />
+                <label for="terms"
+                  >I acknowledge
+                  <a href="/terms" target="_blank">Terms of Service</a> and
+                  <a href="/privacy" target="_blank">Privacy Policy</a>*</label
+                >
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" maxlength="200">Leave a Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Popup Welcome -->
+    <div id="outerdiv">
+      <div id="innerdiv">
+        <strong>Welcome to Goal Sync!</strong> 🎯
+        <span style="display: block"
+          >&nbsp; A small step towards big success. Start today!</span
+        >
+      </div>
+    </div>
 
     <!-- Navbar with Buttons -->
-    <nav class="navbar navbar-expand-lg myNavBar" style="background-color: #f5f5f5;;">
-      <div class="container-fluid"           
-      >
+    <nav
+      class="navbar navbar-expand-lg myNavBar"
+      style="background-color: #f5f5f5"
+    >
+      <div class="container-fluid">
         <a class="navbar-brand" href="#"></a>
         <button
           class="navbar-toggler"
@@ -178,18 +296,19 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <img id="logo" src="https://res.cloudinary.com/da9gwrtit/image/upload/v1733966638/hjquci399fwkgu9ri0sm.png" alt="GoalSync">
-        <div
-          class="collapse navbar-collapse"
-          id="navbarNavDropdown"
-        >
-          <ul class="navbar-nav" style="font-size: 1.1em; ">
+        <img
+          id="logo"
+          src="https://res.cloudinary.com/da9gwrtit/image/upload/v1733966638/hjquci399fwkgu9ri0sm.png"
+          alt="GoalSync"
+        />
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav" style="font-size: 1.1em">
             <li class="nav-item">
               <a
                 class="nav-link active"
                 aria-current="page"
                 href="#"
-                style="background-color: #f5f5f5;"
+                style="background-color: #f5f5f5"
                 >Home</a
               >
             </li>
@@ -204,7 +323,7 @@
             </li>
           </ul>
         </div>
-        <div >
+        <div>
           <button
             class="btn btn-outline-primary"
             data-bs-toggle="modal"
@@ -389,7 +508,7 @@
       id="carouselExampleAutoplaying"
       class="carousel slide"
       data-bs-ride="carousel"
-      style="margin-top: 50px;"
+      style="margin-top: 50px"
     >
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -614,15 +733,15 @@
     <div class="container mb-4">
       <div class="row justify-content-center">
         <div class="col-12">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184552.67411675907!2d-79.54286882279207!3d43.71812279929472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1732230730815!5m2!1sen!2sca"
-              height="450"
-              class="map-reachme"
-              style="border: 0"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184552.67411675907!2d-79.54286882279207!3d43.71812279929472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1732230730815!5m2!1sen!2sca"
+            height="450"
+            class="map-reachme"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
       </div>
     </div>
@@ -630,7 +749,7 @@
     <!-- Footer Section -->
     <footer class="bg-dark text-white text-center py-3 mt-4">
       © 2024 <strong>Goal Sync</strong>. All rights reserved.
-      <br>
+      <br />
     </footer>
 
     <!-- Bootstrap JS -->
