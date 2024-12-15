@@ -158,10 +158,10 @@
         $("#chatForm").on("submit", function(event){
           event.preventDefault();
 
-          const name=$("#name").val();
-          const email=$("#email").val();
-          const phone=$("#phone").val();
-          const message=$("#message").val();
+          let name=$("#name").val();
+          let email=$("#email").val();
+          let phone=$("#phone").val();
+          let message=$("#message").val();
 
           let obj = {
             type: "post",
@@ -227,9 +227,9 @@
           </div>
           <div class="modal-body">
             <p style="size: 0.8em;"><span id="mySpan"> * </span>indicates a required field</p>
-            <form id="chatForm">
+            <form id="chatForm" method="post" action="/chatMessage">
               <label for="name">Your Name*</label>
-              <input
+              <input              
                 type="text"
                 id="name"
                 name="name"
@@ -282,17 +282,17 @@
                   <a href="./privacy.html" target="_blank">Privacy Policy</a>*</label
                 >
               </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary" maxlength="200" id="chatLeave">Leave a Message</button>
+              </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="submit" class="btn btn-primary" maxlength="200" id="chatLeave">Leave a Message</button>
           </div>
         </div>
       </div>
