@@ -59,7 +59,7 @@ EMAIL_PASS=your_email_password_here
 ```
   node myServer.js
 ```
-<b>6. Open your browser and visit:</b>
+<b>6. Application will work locally at: </b>
 ```
   http://localhost:3000
 ```
