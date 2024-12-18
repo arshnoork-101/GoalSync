@@ -40,6 +40,7 @@ Follow these steps to set up the project locally on your machine:
    ```
 
 <b>4. Configure environment variables:</b>
+
 Create a .env file in the root of the project with your Cloudinary, MySQL, and email configuration:
 ```
 CLOUD_NAME=your_cloud_name_here
