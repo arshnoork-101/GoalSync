@@ -22,6 +22,7 @@
 ## Installation
 
 Follow these steps to set up the project locally on your machine:
+
 <b>1. Clone the repository:</b>
    ```bash
    git clone https://github.com/arshnoork-101/GoalSync.git
@@ -33,12 +34,14 @@ Follow these steps to set up the project locally on your machine:
   ```
 
 <b>3. Install the required dependencies:</b>
+
   Make sure you have Node.js and npm installed on your machine. 
    ```
    npm install
    ```
 
 <b>4. Configure environment variables:</b>
+
 Create a .env file in the root of the project with your Cloudinary, MySQL, and email configuration:
 ```
 CLOUD_NAME=your_cloud_name_here
@@ -55,7 +58,7 @@ EMAIL_USER=your_email_here
 EMAIL_PASS=your_email_password_here
 ```
 
-<b>5.To run the server, use the following command:</b>
+<b>5. Run the server:</b>
 ```
   node myServer.js
 ```
@@ -64,5 +67,7 @@ EMAIL_PASS=your_email_password_here
   http://localhost:3000
 ```
 
-## License:
-This project is licensed under the MIT License.
+## Welcoming Suggestions:
+We always welcome new ideas, suggestions, or improvements from the community. If you have any thoughts on how we can make GoalSync better, feel free to open an issue or create a pull request. Your suggestions will help us enhance the project and provide even more value to its users!
+
+
