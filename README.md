@@ -34,6 +34,7 @@ Follow these steps to set up the project locally on your machine:
   ```
 
 <b>3. Install the required dependencies:</b>
+
   Make sure you have Node.js and npm installed on your machine. 
    ```
    npm install
@@ -57,7 +58,7 @@ EMAIL_USER=your_email_here
 EMAIL_PASS=your_email_password_here
 ```
 
-<b>5.To run the server, use the following command:</b>
+<b>5. Run the server:</b>
 ```
   node myServer.js
 ```
