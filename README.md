@@ -22,6 +22,7 @@
 ## Installation
 
 Follow these steps to set up the project locally on your machine:
+
 <b>1. Clone the repository:</b>
    ```bash
    git clone https://github.com/arshnoork-101/GoalSync.git
