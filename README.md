@@ -2,6 +2,7 @@
 
 **GoalSync** is a web application for organizing and joining tournaments. Users can register as organizers to publish events or as players to participate. The platform allows filtering tournaments by city and game while showcasing key details like prizes and certifications. It uses AngularJS for responsive, data-driven interactions and Bootstrap for a mobile-first interface.
 
+
 ## Key Features:
 
 - **Filters**: Refine tournaments by city and game.
@@ -66,6 +67,9 @@ EMAIL_PASS=your_email_password_here
 ```
   http://localhost:3000
 ```
+
+## Project Demo:
+[[!Watch the video demo here](thumbnail.png) ] (https://drive.google.com/file/d/1KAnKDzeFkI6ym6WHiQX6taO5cvoaN7EB/view?usp=sharing)
 
 ## Welcoming Suggestions:
 We always welcome new ideas, suggestions, or improvements from the community. If you have any thoughts on how we can make GoalSync better, feel free to open an issue or create a pull request. Your suggestions will help us enhance the project and provide even more value to its users!
